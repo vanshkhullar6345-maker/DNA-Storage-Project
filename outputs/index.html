@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BioVault | DNA Data Storage</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <canvas id="biofield" aria-hidden="true"></canvas>
+    <div class="ambient ambient-a"></div>
+    <div class="ambient ambient-b"></div>
+
+    <main class="app-shell">
+      <nav class="topbar" aria-label="Primary">
+        <button class="brand-button" data-route="home" aria-label="BioVault home">
+          <span class="brand-mark">🧬</span>
+          <span>BioVault</span>
+        </button>
+        <div class="nav-actions">
+          <button class="icon-button" data-route="home" aria-label="New archive" title="New archive">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+          </button>
+          <button class="icon-button" data-route="retrieve" aria-label="Retrieve archive" title="Retrieve archive">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7V4h3M20 7V4h-3M4 17v3h3M20 17v3h-3M8 12h8M12 8v8" /></svg>
+          </button>
+        </div>
+      </nav>
+
+      <section id="home" class="view active" aria-labelledby="home-title">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <div class="logo-lockup">
+              <span class="logo-glyph">🧬</span>
+              <h1 id="home-title">BioVault</h1>
+            </div>
+            <p class="subtitle">Interactive DNA Data Storage System</p>
+            <p class="description">Experience the Future of Digital Data Storage using DNA Encoding.</p>
+          </div>
+
+          <form id="uploadForm" class="upload-card glass-panel">
+            <label id="dropzone" class="dropzone" for="fileInput">
+              <input id="fileInput" type="file" accept="image/*,.pdf,.txt,.md,.csv,.json,text/*,application/pdf" />
+              <span class="drop-orbit" aria-hidden="true"></span>
+              <span class="drop-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 16V4M7 9l5-5 5 5M5 20h14" /></svg></span>
+              <span class="drop-title">Drop research file</span>
+              <span id="fileLabel" class="drop-meta">Choose File or drag it here</span>
+            </label>
+            <div class="formats" aria-label="Supported file formats"><span>Images</span><span>PDF</span><span>Text Files</span></div>
+            <button class="primary-button" type="submit"><span>Upload</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg></button>
+            <p class="note">Your file will be converted into binary, encoded into DNA, assigned a unique DNA ID, and securely archived.</p>
+          </form>
+        </div>
+      </section>
+
+      <section id="processing" class="view" aria-labelledby="processing-title">
+        <div class="section-heading"><p class="eyebrow">Live encoding dashboard</p><h2 id="processing-title">DNA Archive Pipeline</h2></div>
+        <div class="processing-layout">
+          <div class="pipeline glass-panel" id="pipeline"></div>
+          <aside class="terminal-card glass-panel">
+            <div class="terminal-header"><span></span><span></span><span></span><strong>DNA TERMINAL</strong></div>
+            <div class="terminal-body"><div class="binary-rain" id="binaryRain" aria-hidden="true"></div><pre id="dnaTerminal">awaiting molecular encoder...</pre></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="result" class="view" aria-labelledby="result-title">
+        <div class="result-hero"><div><p class="eyebrow">Archive Complete</p><h2 id="result-title">DNA Storage Report</h2></div><div class="success-orb" aria-label="Archive completed successfully"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg></div></div>
+        <div class="report-grid">
+          <article class="report-card glass-panel"><span>File Name</span><strong id="reportName">-</strong></article>
+          <article class="report-card glass-panel"><span>File Size</span><strong id="reportSize">-</strong></article>
+          <article class="report-card glass-panel"><span>Binary Bits</span><strong id="reportBits">-</strong></article>
+          <article class="report-card glass-panel"><span>DNA Bases Generated</span><strong id="reportBases">-</strong></article>
+          <article class="report-card glass-panel"><span>Compression Type</span><strong>Lossless DNA Encoding</strong></article>
+          <article class="report-card glass-panel"><span>DNA ID</span><strong id="reportId" class="dna-id-box">DNA-00000000</strong></article>
+        </div>
+        <article class="dna-preview glass-panel"><div class="card-title"><span>DNA Preview</span><button class="ghost-button" id="openRetrieve" type="button">Retrieve</button></div><pre id="dnaPreview"></pre></article>
+        <section class="qr-section glass-panel" aria-labelledby="qr-title"><div><h3 id="qr-title">Retrieve My DNA Archive</h3><p>Scan this QR code later to retrieve your archived file.</p></div><div class="qr-frame"><canvas id="qrCanvas" width="196" height="196" aria-label="QR code for DNA archive retrieval"></canvas></div></section>
+      </section>
+
+      <section id="retrieve" class="view" aria-labelledby="retrieve-title">
+        <div class="retrieve-wrap glass-panel"><p class="eyebrow">Secure archive access</p><h2 id="retrieve-title">Retrieve DNA Archive</h2><form id="retrieveForm" class="retrieve-form"><label for="dnaIdInput">Enter DNA ID</label><input id="dnaIdInput" name="dnaIdInput" placeholder="DNA-7F3A91BC" autocomplete="off" /><button class="primary-button" type="submit"><span>Retrieve</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16M14 6l6 6-6 6" /></svg></button></form><div id="restorePanel" class="restore-panel" hidden><div class="success-orb compact" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5" /></svg></div><h3>File Restored Successfully</h3><button id="downloadButton" class="secondary-button" type="button">Download File</button></div></div>
+      </section>
+
+      <section class="about glass-panel" aria-labelledby="about-title"><p class="eyebrow">About DNA Storage</p><h2 id="about-title">Molecular-scale archival storage</h2><p>DNA data storage converts digital information into DNA nucleotide sequences (A, T, G, and C). DNA offers extremely high storage density, durability for thousands of years, and low long-term energy consumption compared to conventional storage devices. This project demonstrates the workflow of DNA data encoding, digital archiving, and retrieval through software simulation.</p></section>
+    </main>
+    <script src="app.js"></script>
+  </body>
+</html>
